@@ -121,27 +121,42 @@ export const SPECIAL_RULES: SpecialRule[] = [
   {
     id: "help-quest",
     name: "Help Someone Complete a Quest",
-    description: "Find another player and help them complete a quest or goal.",
+    description: "Find a random player and help them complete a quest or goal.",
   },
   {
     id: "help-kill-arc",
     name: "Help Someone Kill a Big Arc",
-    description: "Team up with another player to take down a big Arc enemy.",
+    description: "Team up with random player to take down a big Arc enemy.",
   },
   {
     id: "ride-rocketeer",
     name: "Ride a Rocketeer",
-    description: "Ride a Rocketeer.",
+    description: "Ride 'em cowboy. YeeHaw!!",
+  },
+  {
+    id: "ride-hornet",
+    name: "Ride a Wasp or Hornet",
+    description: "Stepping stones to a rocketeer. They are still too scary.",
   },
   {
     id: "medic",
     name: "Revive a player",
-    description: "Provide medical assistance to a random player.",
+    description: "Provide medical assistance to a random player. Doesn't count if you downed them.",
+  },
+  {
+    id: "duel",
+    name: "Duel",
+    description: "Challenge a random player to a duel. Start back to back and walk 20 paces",
+  },
+  {
+    id: "bodyguard",
+    name: "Bodyguard",
+    description: "Be the bodyguard for a random player. Even better if you don't tell them.",
   },
   {
     id: "start-a-band",
     name: "Start a Band",
-    description: "Take one of each instrument in and start a band.",
+    description: "Take one of each instrument in and start a band with random players.",
     requiresNoGunLoadout: true,
   }
 ]
