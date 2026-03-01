@@ -1,5 +1,4 @@
 import { GameSpinner } from "@/components/game-spinner"
-import { GoogleAd } from "@/components/google-ad"
 
 export default function Home() {
   return (
@@ -55,10 +54,6 @@ export default function Home() {
         </p>
       </footer>
 
-      {/* Google Ad */}
-      <div className="w-full flex justify-center pt-8">
-        <GoogleAd slot="2154540259" format="horizontal" responsive={true} />
-      </div>
     </main>
   )
 }
