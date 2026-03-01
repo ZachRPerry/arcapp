@@ -14,25 +14,46 @@ import { MessageSquarePlus } from "lucide-react"
 
 export function FeedbackDialog() {
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
   const [suggestion, setSuggestion] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    // In production, this would POST to an API route / database
-    console.log("[v0] Feedback submitted:", { name, suggestion })
-    setSubmitted(true)
-    setTimeout(() => {
-      setOpen(false)
-      setSubmitted(false)
-      setName("")
-      setSuggestion("")
-    }, 2000)
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch("https://formbold.com/s/9E4Vk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, suggestion }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to submit feedback")
+      }
+
+      setSubmitted(true)
+      setIsSubmitting(false)
+    } catch (error) {
+      console.error("Error submitting feedback:", error)
+      alert("Failed to submit suggestion. Please try again.")
+      setIsSubmitting(false)
+    }
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={(isOpen) => {
+      setOpen(isOpen)
+      if (!isOpen) {
+        // Reset form when dialog closes
+        setSubmitted(false)
+        setEmail("")
+        setSuggestion("")
+        setIsSubmitting(false)
+      }
+    }}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2 border-border text-muted-foreground hover:text-foreground hover:border-primary/50">
           <MessageSquarePlus className="size-4" />
@@ -58,16 +79,17 @@ export function FeedbackDialog() {
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="feedback-name" className="text-sm font-medium text-foreground">
-                Your Name <span className="text-muted-foreground">(optional)</span>
+              <label htmlFor="feedback-email" className="text-sm font-medium text-foreground">
+                Your Email <span className="text-muted-foreground">(optional)</span>
               </label>
               <input
-                id="feedback-name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Raider123"
-                className="rounded-md border border-border bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                id="feedback-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="raider@example.com"
+                disabled={isSubmitting}
+                className="rounded-md border border-border bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -81,15 +103,16 @@ export function FeedbackDialog() {
                 value={suggestion}
                 onChange={(e) => setSuggestion(e.target.value)}
                 placeholder="e.g. Pistols Only - You can only use pistol-class weapons..."
-                className="rounded-md border border-border bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                disabled={isSubmitting}
+                className="rounded-md border border-border bg-secondary px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
             <Button
               type="submit"
-              disabled={!suggestion.trim()}
+              disabled={!suggestion.trim() || isSubmitting}
               className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              Submit Suggestion
+              {isSubmitting ? "Submitting..." : "Submit Suggestion"}
             </Button>
           </form>
         )}
