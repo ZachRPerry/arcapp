@@ -63,6 +63,16 @@ export const WEAPONS: Weapon[] = [
 ]
 
 // ============================================
+// BASE MAPS
+// ============================================
+export const BASE_MAPS = [
+  { name: "Dam", id: "dam"},
+  { name: "Spaceport", id: "spaceport" },
+  { name: "Buried City", id: "buried-city" },
+  { name: "Blue Gate", id: "blue-gate" },
+]
+
+// ============================================
 // SPECIAL RULES
 // ============================================
 export const SPECIAL_RULES: SpecialRule[] = [

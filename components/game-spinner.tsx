@@ -8,7 +8,7 @@ import { OptionSelector, type SpinOption } from "@/components/option-selector"
 import { SpinAnimation } from "@/components/spin-animation"
 import { SpinResults, type SpinResult } from "@/components/spin-results"
 import { FeedbackDialog } from "@/components/feedback-dialog"
-import { WEAPONS, SPECIAL_RULES } from "@/lib/game-config"
+import { WEAPONS, SPECIAL_RULES, BASE_MAPS } from "@/lib/game-config"
 import type { MapEvent } from "@/app/api/events/route"
 
 function pickRandom<T>(arr: T[]): T {
@@ -48,22 +48,26 @@ export function GameSpinner() {
     }
 
     // Map
-    if (selected.map && mapEvents && mapEvents.length > 0) {
-      const now = Date.now()
-      // Filter to active events (started and not ended)
-      const activeEvents = mapEvents.filter(
-        (e) => e.startTime <= now && e.endTime >= now
-      )
-      // If no active events, use all available events
-      const pool = activeEvents.length > 0 ? activeEvents : mapEvents
-      const event = pickRandom(pool)
-      spinResult.mapEvent = { name: event.name, map: event.map, icon: event.icon }
-    } else if (selected.map) {
-      // Fallback if API fails
-      spinResult.mapEvent = {
-        name: "Unknown Event",
-        map: "Random Map",
-        icon: "",
+    if (selected.map) {
+      const mapPool: Array<{name: string; map: string; icon: string}> = []
+      
+      // Add events if available
+      if (mapEvents && mapEvents.length > 0) {
+        const now = Date.now()
+        const activeEvents = mapEvents.filter(
+          (e) => e.startTime <= now && e.endTime >= now
+        )
+        const eventsToUse = activeEvents.length > 0 ? activeEvents : mapEvents
+        mapPool.push(...eventsToUse.map(e => ({ name: e.name, map: e.map, icon: e.icon })))
+      }
+      
+      // Always add base maps to the pool for chance selection
+      mapPool.push(...BASE_MAPS.map(m => ({ name: m.name, map: m.name, icon: "" })))
+      
+      // Pick randomly from combined pool
+      if (mapPool.length > 0) {
+        const selected = pickRandom(mapPool)
+        spinResult.mapEvent = selected
       }
     }
 
