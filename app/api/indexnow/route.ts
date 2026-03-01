@@ -5,9 +5,6 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { urlList, keyLocation } = body
 
-    // Log IndexNow submission for monitoring
-    console.log('[IndexNow] Submitted URLs:', urlList)
-
     // Notify Bing IndexNow
     const bingResponse = await fetch('https://www.bing.com/indexnow', {
       method: 'POST',
@@ -23,7 +20,6 @@ export async function POST(request: Request) {
     })
 
     if (bingResponse.ok) {
-      console.log('[IndexNow] Successfully submitted to Bing')
       return NextResponse.json(
         { success: true, message: 'URLs submitted to IndexNow' },
         { status: 200 }

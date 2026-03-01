@@ -6,7 +6,7 @@ export default function Home() {
       {/* Header */}
       <header className="flex flex-col items-center gap-3 pb-10">
         <div className="flex items-center gap-3">
-          <img src="/logo.svg" alt="Raid Roulette Logo" className="size-10" />
+          <img src="/logo.svg" alt="Raid Roulette Logo" className="size-10" aria-label="Raid Roulette hexagonal dice logo" />
           <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl text-balance">
             Raid Roulette
           </h1>
