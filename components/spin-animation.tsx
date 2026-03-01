@@ -54,12 +54,13 @@ export function SpinAnimation({ isSpinning, onComplete, duration = 2500 }: SpinA
   return (
     <div
       className={cn(
-        "flex flex-col items-center gap-4 py-8",
-        phase === "done" && "animate-in fade-in duration-500"
+        "fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm",
+        phase === "done" && "animate-out fade-out duration-300"
       )}
       role="status"
       aria-label="Spinning for random result"
     >
+      <div className="flex flex-col items-center gap-4">
       {phase === "spinning" && (
         <>
           {/* Outer ring animation */}
@@ -92,6 +93,7 @@ export function SpinAnimation({ isSpinning, onComplete, duration = 2500 }: SpinA
           </div>
         </>
       )}
+      </div>
     </div>
   )
 }
