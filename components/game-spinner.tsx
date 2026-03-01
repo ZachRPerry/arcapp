@@ -102,6 +102,13 @@ export function GameSpinner() {
     setShowResults(false)
     setResult(null)
     setIsSpinning(true)
+    
+    // Track spin event in Google Analytics
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      (window as any).gtag('event', 'spin_initiated', {
+        'selected_categories': Object.keys(selected).filter(key => selected[key as SpinOption])
+      })
+    }
   }
 
   const handleSpinComplete = useCallback(() => {
@@ -109,6 +116,15 @@ export function GameSpinner() {
     setResult(spinResult)
     setIsSpinning(false)
     setShowResults(true)
+    
+    // Track spin completion in Google Analytics
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      (window as any).gtag('event', 'spin_completed', {
+        'had_weapon': !!spinResult.weapon,
+        'had_map': !!spinResult.mapEvent,
+        'had_rule': !!spinResult.specialRule
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected, mapEvents])
 

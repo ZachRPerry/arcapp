@@ -34,6 +34,14 @@ export function FeedbackDialog() {
         throw new Error("Failed to submit feedback")
       }
 
+      // Track feedback submission in Google Analytics
+      if (typeof window !== 'undefined' && 'gtag' in window) {
+        (window as any).gtag('event', 'feedback_submitted', {
+          'has_email': !!email,
+          'suggestion_length': suggestion.length
+        })
+      }
+
       setSubmitted(true)
       setIsSubmitting(false)
     } catch (error) {
