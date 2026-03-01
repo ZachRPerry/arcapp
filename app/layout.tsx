@@ -109,6 +109,7 @@ export default function RootLayout({
             }),
           }}
         />
+        <meta name="indexnow-verification" content="fc129c9c1e584edc9dbabebd7a1202ae" />
       </head>
       <body className="font-sans antialiased">
         {children}
