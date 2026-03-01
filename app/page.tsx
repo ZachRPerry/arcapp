@@ -25,7 +25,7 @@ export default function Home() {
             </svg>
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl text-balance">
-            Arc Raiders Spinner
+            Raid Roulette
           </h1>
         </div>
         <p className="max-w-md text-center text-sm leading-relaxed text-muted-foreground">
