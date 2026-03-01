@@ -113,4 +113,14 @@ export const SPECIAL_RULES: SpecialRule[] = [
     name: "Help Someone Kill a Big Arc",
     description: "Team up with another player to take down a big Arc enemy.",
   },
+  {
+    id: "ride-rocketeer",
+    name: "Ride a Rocketeer",
+    description: "Ride a Rocketeer.",
+  },
+  {
+    id: "medic",
+    name: "Revive a player",
+    description: "Provide medical assistance to a random player.",
+  }
 ]
