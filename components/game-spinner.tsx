@@ -156,9 +156,8 @@ export function GameSpinner() {
         ) : (
           <Button
             onClick={handleSpin}
-            variant="outline"
             size="lg"
-            className="h-14 w-full max-w-xs gap-3 rounded-lg border-border text-muted-foreground hover:text-foreground hover:border-primary/50 text-lg font-bold tracking-wider uppercase transition-all duration-300"
+            className="relative h-14 w-full max-w-xs gap-3 rounded-lg bg-primary text-primary-foreground text-lg font-bold tracking-wider uppercase shadow-[0_0_30px_rgba(0,220,180,0.2)] hover:bg-primary/90 hover:shadow-[0_0_40px_rgba(0,220,180,0.35)] transition-all duration-300"
           >
             <RotateCcw className="size-5" />
             Spin Again
