@@ -7,8 +7,43 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Arc Raiders Spinner - Random Game Format Generator',
+  title: 'Raid Roulette',
   description: 'Randomize your next Arc Raiders drop with random gun loadouts, maps, and special rules. A free community tool for Arc Raiders players.',
+  keywords: ['Arc Raiders', 'game spinner', 'random loadout', 'Arc Raiders tools', 'game randomizer', 'raid roulette', 'Arc Raiders spinner'],
+  authors: [{ name: 'Raid Roulette' }],
+  creator: 'Raid Roulette',
+  publisher: 'Raid Roulette',
+  metadataBase: new URL('https://raidroulette.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Raid Roulette - Arc Raiders Random Game Format Generator',
+    description: 'Randomize your next Arc Raiders drop with random gun loadouts, maps, and special rules. A free community tool for Arc Raiders players.',
+    url: 'https://raidroulette.com',
+    siteName: 'Raid Roulette',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/placeholder-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Raid Roulette - Arc Raiders Spinner',
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: [
       {
@@ -49,6 +84,29 @@ export default function RootLayout({
               gtag('js', new Date());
               gtag('config', 'G-FNSZ572Z0R');
             `,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebApplication',
+              name: 'Raid Roulette',
+              description: 'Randomize your next Arc Raiders drop with random gun loadouts, maps, and special rules.',
+              url: 'https://raidroulette.com',
+              applicationCategory: 'GameApplication',
+              operatingSystem: 'Any',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
+              author: {
+                '@type': 'Organization',
+                name: 'Raid Roulette',
+              },
+            }),
           }}
         />
       </head>

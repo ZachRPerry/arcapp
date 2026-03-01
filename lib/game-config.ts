@@ -88,6 +88,11 @@ export const SPECIAL_RULES: SpecialRule[] = [
     description: "Swap your gun after each kill you get.",
   },
   {
+    id: "no-heals",
+    name: "No Heals",
+    description: "Only loot or craft heals in game.",
+  },
+  {
     id: "no-grenades",
     name: "No Grenades",
     description: "You cannot use any grenades this round.",
@@ -122,5 +127,11 @@ export const SPECIAL_RULES: SpecialRule[] = [
     id: "medic",
     name: "Revive a player",
     description: "Provide medical assistance to a random player.",
+  },
+  {
+    id: "start-a-band",
+    name: "Start a Band",
+    description: "Take one of each instrument in and start a band.",
+    requiresNoGunLoadout: true,
   }
 ]
