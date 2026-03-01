@@ -58,7 +58,7 @@ export const WEAPONS: Weapon[] = [
   { name: "Torrente", type: "LMG" },
 
   // Special Weapons
-  { name: "Equalizer", type: "Speical" },
+  { name: "Equalizer", type: "Special" },
   { name: "Hullcracker", type: "Special" },
 ]
 
