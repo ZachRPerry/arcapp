@@ -70,6 +70,7 @@ export const BASE_MAPS = [
   { name: "Spaceport", id: "spaceport" },
   { name: "Buried City", id: "buried-city" },
   { name: "Blue Gate", id: "blue-gate" },
+  { name: "Stella Montis", id: "stella" },
 ]
 
 // ============================================
