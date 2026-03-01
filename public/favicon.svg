@@ -1,0 +1,17 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer hexagon -->
+  <path d="M16 3 L26 9 L26 19 L16 25 L6 19 L6 9 Z" stroke="#00DCB4" stroke-width="2" fill="none" opacity="0.6"/>
+  
+  <!-- Inner hexagon -->
+  <path d="M16 8 L21 11 L21 17 L16 20 L11 17 L11 11 Z" stroke="#00DCB4" stroke-width="1.5" fill="rgba(0,220,180,0.15)"/>
+  
+  <!-- Center circle with dice dot -->
+  <circle cx="16" cy="14" r="4" fill="rgba(0,220,180,0.25)" stroke="#00DCB4" stroke-width="1.5"/>
+  <circle cx="16" cy="14" r="1.5" fill="#00DCB4"/>
+  
+  <!-- Corner dots -->
+  <circle cx="13" cy="11.5" r="0.8" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="19" cy="11.5" r="0.8" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="13" cy="16.5" r="0.8" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="19" cy="16.5" r="0.8" fill="#00DCB4" opacity="0.8"/>
+</svg>

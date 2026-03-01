@@ -1,0 +1,28 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0f14"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,220,180,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Large hexagon logo -->
+  <path d="M600 150 L750 237.5 L750 412.5 L600 500 L450 412.5 L450 237.5 Z" stroke="#00DCB4" stroke-width="4" fill="none" opacity="0.4"/>
+  <path d="M600 200 L700 262.5 L700 387.5 L600 450 L500 387.5 L500 262.5 Z" stroke="#00DCB4" stroke-width="3" fill="rgba(0,220,180,0.1)"/>
+  <circle cx="600" cy="325" r="60" fill="rgba(0,220,180,0.2)" stroke="#00DCB4" stroke-width="3"/>
+  
+  <!-- Dice dots -->
+  <circle cx="600" cy="325" r="8" fill="#00DCB4"/>
+  <circle cx="570" cy="300" r="6" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="630" cy="300" r="6" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="570" cy="350" r="6" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="630" cy="350" r="6" fill="#00DCB4" opacity="0.8"/>
+  
+  <!-- Text -->
+  <text x="600" y="550" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="bold" fill="#ffffff" text-anchor="middle">RAID ROULETTE</text>
+  <text x="600" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="rgba(255,255,255,0.6)" text-anchor="middle">Arc Raiders Random Spinner</text>
+</svg>

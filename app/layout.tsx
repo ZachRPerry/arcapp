@@ -26,12 +26,18 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/placeholder-logo.png',
+        url: '/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'Raid Roulette - Arc Raiders Spinner',
+        alt: 'Raid Roulette - Arc Raiders Raid Spinner',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Raid Roulette - Arc Raiders Random Game Format Generator',
+    description: 'Randomize your next Arc Raiders drop with random gun loadouts, maps, and special rules.',
+    images: ['/og-image.svg'],
   },
   robots: {
     index: true,
@@ -47,15 +53,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
+        url: '/favicon.svg',
         type: 'image/svg+xml',
       },
     ],

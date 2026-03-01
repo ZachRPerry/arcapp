@@ -1,0 +1,22 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer hexagon ring -->
+  <path d="M60 10 L95 32.5 L95 67.5 L60 90 L25 67.5 L25 32.5 Z" stroke="#00DCB4" stroke-width="3" fill="none" opacity="0.4"/>
+  
+  <!-- Middle rotating element -->
+  <path d="M60 25 L80 37.5 L80 62.5 L60 75 L40 62.5 L40 37.5 Z" stroke="#00DCB4" stroke-width="2.5" fill="rgba(0,220,180,0.1)"/>
+  
+  <!-- Center dice/roulette symbol -->
+  <circle cx="60" cy="50" r="15" fill="rgba(0,220,180,0.2)" stroke="#00DCB4" stroke-width="2"/>
+  
+  <!-- Dice dots arranged in roulette pattern -->
+  <circle cx="60" cy="50" r="2.5" fill="#00DCB4"/>
+  <circle cx="52" cy="44" r="2" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="68" cy="44" r="2" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="52" cy="56" r="2" fill="#00DCB4" opacity="0.8"/>
+  <circle cx="68" cy="56" r="2" fill="#00DCB4" opacity="0.8"/>
+  
+  <!-- Spinning indicator lines -->
+  <line x1="60" y1="90" x2="60" y2="100" stroke="#00DCB4" stroke-width="2" opacity="0.6"/>
+  <line x1="25" y1="67.5" x2="18" y2="72" stroke="#00DCB4" stroke-width="2" opacity="0.6"/>
+  <line x1="95" y1="67.5" x2="102" y2="72" stroke="#00DCB4" stroke-width="2" opacity="0.6"/>
+</svg>

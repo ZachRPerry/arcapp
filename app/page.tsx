@@ -6,24 +6,7 @@ export default function Home() {
       {/* Header */}
       <header className="flex flex-col items-center gap-3 pb-10">
         <div className="flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-md border border-primary/30 bg-primary/10">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              className="size-6 text-primary"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5" />
-              <line x1="12" y1="22" x2="12" y2="15.5" />
-              <polyline points="22 8.5 12 15.5 2 8.5" />
-              <polyline points="2 15.5 12 8.5 22 15.5" />
-              <line x1="12" y1="2" x2="12" y2="8.5" />
-            </svg>
-          </div>
+          <img src="/logo.svg" alt="Raid Roulette Logo" className="size-10" />
           <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl text-balance">
             Raid Roulette
           </h1>
