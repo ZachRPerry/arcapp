@@ -1,4 +1,5 @@
 import { GameSpinner } from "@/components/game-spinner"
+import { GoogleAd } from "@/components/google-ad"
 
 export default function Home() {
   return (
@@ -53,6 +54,11 @@ export default function Home() {
           Not affiliated with Embark Studios. Built for the Arc Raiders community.
         </p>
       </footer>
+
+      {/* Google Ad */}
+      <div className="w-full flex justify-center pt-8">
+        <GoogleAd slot="1234567890" format="horizontal" responsive={true} />
+      </div>
     </main>
   )
 }
