@@ -57,7 +57,7 @@ export default function Home() {
 
       {/* Google Ad */}
       <div className="w-full flex justify-center pt-8">
-        <GoogleAd slot="1234567890" format="horizontal" responsive={true} />
+        <GoogleAd slot="2154540259" format="horizontal" responsive={true} />
       </div>
     </main>
   )
