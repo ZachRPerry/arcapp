@@ -1,13 +1,11 @@
 "use client"
 
-import { Crosshair, Map, Zap } from "lucide-react"
-import type { Weapon, SpecialRule } from "@/lib/game-config"
-import { cn } from "@/lib/utils"
+import { WeaponRarity, type Weapon, type SpecialRule } from "@/lib/game-config"
 
 interface MapEventResult {
   name: string
   map: string
-  icon: string
+  image: string
 }
 
 export interface SpinResult {
@@ -21,98 +19,109 @@ interface SpinResultsProps {
   visible: boolean
 }
 
-function ResultCard({
-  icon,
-  label,
-  value,
-  detail,
-  delay,
-}: {
-  icon: React.ReactNode
-  label: string
-  value: string
-  detail?: string
-  delay: number
-}) {
-  return (
-    <div
-      className={cn(
-        "animate-in fade-in slide-in-from-bottom-4 flex flex-col items-center gap-3 rounded-lg border border-primary/30 bg-card p-6 shadow-[0_0_24px_rgba(0,220,180,0.08)]"
-      )}
-      style={{ animationDelay: `${delay}ms`, animationFillMode: "both", animationDuration: "500ms" }}
-    >
-      <div className="flex size-10 items-center justify-center rounded-md bg-primary/15 text-primary">
-        {icon}
-      </div>
-      <p className="text-xs font-medium tracking-widest uppercase text-muted-foreground">
-        {label}
-      </p>
-      <p className="text-xl font-bold tracking-wide text-foreground text-center text-balance">
-        {value}
-      </p>
-      {detail && (
-        <p className="text-xs text-muted-foreground text-center">{detail}</p>
-      )}
-    </div>
-  )
+function getRarityGradient(rarity: WeaponRarity): string {
+  switch (rarity) {
+    case WeaponRarity.Uncommon:
+      return "linear-gradient(135deg, #14532d 0%, #22c55e 52%, #86efac 100%)"
+    case WeaponRarity.Rare:
+      return "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 52%, #93c5fd 100%)"
+    case WeaponRarity.Epic:
+      return "linear-gradient(135deg, #831843 0%, #ec4899 52%, #f9a8d4 100%)"
+    case WeaponRarity.Legendary:
+      return "linear-gradient(135deg, #78350f 0%, #f59e0b 52%, #fcd34d 100%)"
+    case WeaponRarity.Common:
+    default:
+      return "linear-gradient(135deg, #374151 0%, #6b7280 52%, #d1d5db 100%)"
+  }
+}
+
+function getRarityTextColor(rarity: WeaponRarity): string {
+  switch (rarity) {
+    case WeaponRarity.Uncommon:
+      return "#22c55e"
+    case WeaponRarity.Rare:
+      return "#60a5fa"
+    case WeaponRarity.Epic:
+      return "#f472b6"
+    case WeaponRarity.Legendary:
+      return "#fbbf24"
+    case WeaponRarity.Common:
+    default:
+      return "#d1d5db"
+  }
 }
 
 export function SpinResults({ result, visible }: SpinResultsProps) {
   if (!result || !visible) return null
 
-  const cards: { icon: React.ReactNode; label: string; value: string; detail?: string }[] = []
-
-  if (result.weapon) {
-    cards.push({
-      icon: <Crosshair className="size-5" />,
-      label: "Weapon",
-      value: result.weapon.name,
-      detail: result.weapon.type,
-    })
-  }
-
-  if (result.mapEvent) {
-    cards.push({
-      icon: <Map className="size-5" />,
-      label: "Map",
-      value: result.mapEvent.map,
-      detail: result.mapEvent.name,
-    })
-  }
-
-  if (result.specialRule) {
-    cards.push({
-      icon: <Zap className="size-5" />,
-      label: "Special Rule",
-      value: result.specialRule.name,
-      detail: result.specialRule.description,
-    })
-  }
+  const weaponImage = result.weapon?.image?.trim() ? result.weapon.image : "/result-gun.svg"
+  const mapImage = result.mapEvent?.image?.trim() ? result.mapEvent.image : "/result-map.svg"
+  const weaponBackground = result.weapon ? getRarityGradient(result.weapon.rarity) : undefined
+  const weaponNameColor = result.weapon ? getRarityTextColor(result.weapon.rarity) : undefined
 
   return (
-    <div className="flex flex-col gap-4">
-      <p className="text-center text-sm font-medium tracking-widest uppercase text-primary">
-        Your Mission
+    <div className="animate-in fade-in slide-in-from-bottom-4 flex w-full flex-col gap-4">
+      <p className="text-center text-sm font-bold tracking-[0.16em] uppercase text-muted-foreground sm:text-base">
+        Mission Objective
       </p>
-      <div
-        className={cn(
-          "grid gap-4",
-          cards.length === 1 && "grid-cols-1 max-w-sm mx-auto",
-          cards.length === 2 && "grid-cols-1 sm:grid-cols-2",
-          cards.length === 3 && "grid-cols-1 sm:grid-cols-3"
-        )}
-      >
-        {cards.map((card, i) => (
-          <ResultCard
-            key={card.label}
-            icon={card.icon}
-            label={card.label}
-            value={card.value}
-            detail={card.detail}
-            delay={i * 200}
-          />
-        ))}
-      </div>
+
+      {(result.weapon || result.mapEvent) && (
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {result.weapon && (
+            <article className="overflow-hidden rounded-xl border border-primary/55 bg-card/90 shadow-[0_0_28px_color-mix(in_oklch,var(--color-primary)_22%,transparent)]">
+              <div className="relative h-40 w-full border-b border-border/80 sm:h-48" style={{ backgroundImage: weaponBackground }}>
+                <img
+                  src={weaponImage}
+                  alt={`Weapon result: ${result.weapon.name}`}
+                  className="h-full w-full object-contain p-3"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null
+                    event.currentTarget.src = "/result-gun.svg"
+                  }}
+                />
+              </div>
+              <div className="flex flex-col gap-1 p-4 sm:p-5">
+                <p className="text-xs font-bold tracking-[0.14em] uppercase text-muted-foreground">Gun Loadout</p>
+                <p className="text-2xl font-black tracking-wide uppercase sm:text-3xl" style={{ color: weaponNameColor }}>{result.weapon.name}</p>
+                <p className="text-sm font-semibold tracking-wide uppercase text-foreground/80">{result.weapon.type}</p>
+              </div>
+            </article>
+          )}
+
+          {result.mapEvent && (
+            <article className="overflow-hidden rounded-xl border border-primary/55 bg-card/90 shadow-[0_0_28px_color-mix(in_oklch,var(--color-primary)_22%,transparent)]">
+              <div className="relative h-40 w-full border-b border-border/80 bg-secondary/40 sm:h-48">
+                <img
+                  src={mapImage}
+                  alt={`Map result: ${result.mapEvent.map}`}
+                  className="h-full w-full object-cover"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null
+                    event.currentTarget.src = "/result-map.svg"
+                  }}
+                />
+              </div>
+              <div className="flex flex-col gap-1 p-4 sm:p-5">
+                <p className="text-xs font-bold tracking-[0.14em] uppercase text-muted-foreground">Map Selection</p>
+                <p className="text-2xl font-black tracking-wide uppercase text-primary sm:text-3xl">{result.mapEvent.map}</p>
+                <p className="text-sm font-semibold tracking-wide uppercase text-foreground/80">{result.mapEvent.name}</p>
+              </div>
+            </article>
+          )}
+        </div>
+      )}
+
+      {result.specialRule && (
+        <div className="mx-auto w-full max-w-3xl">
+          <article className="flex flex-col rounded-xl border border-primary/55 bg-card/90 p-4 shadow-[0_0_28px_color-mix(in_oklch,var(--color-primary)_22%,transparent)] sm:p-5">
+            <div className="flex flex-col gap-1">
+              <p className="text-xs font-bold tracking-[0.14em] uppercase text-muted-foreground">Special Rule</p>
+              <p className="text-2xl font-black tracking-wide uppercase text-primary sm:text-3xl">{result.specialRule.name}</p>
+              <p className="text-sm text-foreground/80">{result.specialRule.description}</p>
+            </div>
+          </article>
+        </div>
+      )}
     </div>
   )
 }

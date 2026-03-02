@@ -6,7 +6,26 @@
 export interface Weapon {
   name: string
   type: "Battle Rifles" | "Assault Rifles" | "SMG" | "Shotgun" | "Sniper" | "LMG" | "Pistol" | "Special"
+  image: string
+  rarity: WeaponRarity
 }
+
+export enum WeaponRarity {
+  Common = "Common",
+  Uncommon = "Uncommon",
+  Rare = "Rare",
+  Epic = "Epic",
+  Legendary = "Legendary",
+}
+
+export interface BaseMap {
+  name: string
+  id: string
+  image: string
+}
+
+const DEFAULT_WEAPON_IMAGE = "/result-gun.svg"
+const DEFAULT_MAP_IMAGE = "/result-map.svg"
 
 export interface SpecialRule {
   id: string
@@ -23,54 +42,54 @@ export interface SpecialRule {
 // ============================================
 export const WEAPONS: Weapon[] = [
   // Battle Rifles
-  { name: "Ferro", type: "Battle Rifles" },
-  { name: "Renegade", type: "Battle Rifles" },
-  { name: "Aphelion", type: "Battle Rifles" },
+  { name: "Ferro", type: "Battle Rifles", image: "/weapons/Ferro.png", rarity: WeaponRarity.Common },
+  { name: "Renegade", type: "Battle Rifles", image: "/weapons/Renegade.png", rarity: WeaponRarity.Rare },
+  { name: "Aphelion", type: "Battle Rifles", image: "/weapons/Aphelion.png", rarity: WeaponRarity.Legendary },
 
   // Assault Rifles
-  { name: "Kettle", type: "Assault Rifles" },
-  { name: "Rattler", type: "Assault Rifles" }, 
-  { name: "Arpeggio", type: "Assault Rifles" },
-  { name: "Tempest", type: "Assault Rifles" },
-  { name: "Bettina", type: "Assault Rifles" },
+  { name: "Kettle", type: "Assault Rifles", image: "/weapons/Kettle.png", rarity: WeaponRarity.Common },
+  { name: "Rattler", type: "Assault Rifles", image: "/weapons/Rattler.png", rarity: WeaponRarity.Common }, 
+  { name: "Arpeggio", type: "Assault Rifles", image: "/weapons/Arpeggio.png", rarity: WeaponRarity.Uncommon },
+  { name: "Tempest", type: "Assault Rifles", image: "/weapons/Tempest.png", rarity: WeaponRarity.Epic },
+  { name: "Bettina", type: "Assault Rifles", image: "/weapons/Bettina.png", rarity: WeaponRarity.Epic },
 
   
   // Pistols
-  { name: "Hairpin", type: "Pistol" },
-  { name: "Burletta", type: "Pistol" },
-  { name: "Anvil", type: "Pistol" },
-  { name: "Venator", type: "Pistol" },
+  { name: "Hairpin", type: "Pistol", image: "/weapons/Hairpin.png", rarity: WeaponRarity.Common },
+  { name: "Burletta", type: "Pistol", image: "/weapons/Burletta.png", rarity: WeaponRarity.Uncommon },
+  { name: "Anvil", type: "Pistol", image: "/weapons/Anvil.png", rarity: WeaponRarity.Uncommon },
+  { name: "Venator", type: "Pistol", image: "/weapons/Venator.png", rarity: WeaponRarity.Rare },
 
 
   // SMGs
-  { name: "Stitcher", type: "SMG" },
-  { name: "Bobcat", type: "SMG" },
+  { name: "Stitcher", type: "SMG", image: "/weapons/Stitcher.png", rarity: WeaponRarity.Common },
+  { name: "Bobcat", type: "SMG", image: "/weapons/Bobcat.png", rarity: WeaponRarity.Epic },
 
   // Shotguns
-  { name: "Il Toro", type: "Shotgun" },
-  { name: "Vulcano", type: "Shotgun" },
+  { name: "Il Toro", type: "Shotgun", image: "/weapons/Il_Toro-.png", rarity: WeaponRarity.Uncommon },
+  { name: "Vulcano", type: "Shotgun", image: "/weapons/Volcano.png", rarity: WeaponRarity.Epic },
 
   // Snipers
-  { name: "Osprey", type: "Sniper" },
-  { name: "Jupiter", type: "Sniper" },
+  { name: "Osprey", type: "Sniper", image: "/weapons/Osprey.png", rarity: WeaponRarity.Rare },
+  { name: "Jupiter", type: "Sniper", image: "/weapons/Jupiter.png", rarity: WeaponRarity.Legendary },
 
   // LMGs
-  { name: "Torrente", type: "LMG" },
+  { name: "Torrente", type: "LMG", image: "/weapons/Torrente.png", rarity: WeaponRarity.Rare },
 
   // Special Weapons
-  { name: "Equalizer", type: "Special" },
-  { name: "Hullcracker", type: "Special" },
+  { name: "Equalizer", type: "Special", image: "/weapons/Equalizer.png", rarity: WeaponRarity.Legendary },
+  { name: "Hullcracker", type: "Special", image: "/weapons/Hullcracker.png", rarity: WeaponRarity.Epic },
 ]
 
 // ============================================
 // BASE MAPS
 // ============================================
-export const BASE_MAPS = [
-  { name: "Dam", id: "dam"},
-  { name: "Spaceport", id: "spaceport" },
-  { name: "Buried City", id: "buried-city" },
-  { name: "Blue Gate", id: "blue-gate" },
-  { name: "Stella Montis", id: "stella" },
+export const BASE_MAPS: BaseMap[] = [
+  { name: "Dam", id: "dam", image: "/maps/dam.png" },
+  { name: "Spaceport", id: "spaceport", image: "/maps/spaceport.png" },
+  { name: "Buried City", id: "buried-city", image: "/maps/buried=city.png" },
+  { name: "Blue Gate", id: "blue-gate", image: "/maps/blue-gate.png" },
+  { name: "Stella Montis", id: "stella", image: "/maps/stella.png" },
 ]
 
 // ============================================

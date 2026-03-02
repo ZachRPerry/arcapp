@@ -1,0 +1,22 @@
+<svg width="640" height="320" viewBox="0 0 640 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="640" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#21143f"/>
+      <stop offset="1" stop-color="#130d2b"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="112" y1="150" x2="568" y2="165" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f4ebd2"/>
+      <stop offset="1" stop-color="#d9cfae"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="320" rx="20" fill="url(#bg)"/>
+  <rect x="36" y="40" width="568" height="240" rx="14" stroke="#54497a" stroke-width="2"/>
+  <rect x="112" y="150" width="310" height="20" rx="10" fill="url(#metal)"/>
+  <rect x="398" y="142" width="132" height="14" rx="6" fill="#f4ebd2"/>
+  <rect x="532" y="146" width="54" height="8" rx="4" fill="#e2d7bb"/>
+  <rect x="168" y="138" width="132" height="12" rx="6" fill="#f1e5c6"/>
+  <path d="M108 160V216C108 228 118 238 130 238H192V160H108Z" fill="#f1e5c6"/>
+  <path d="M192 178L234 212V238H192V178Z" fill="#dbcfae"/>
+  <rect x="248" y="170" width="42" height="18" rx="9" fill="#d4c7a3"/>
+  <text x="320" y="280" text-anchor="middle" fill="#c7bb98" font-family="system-ui, sans-serif" font-size="20" letter-spacing="3">WEAPON DRAW</text>
+</svg>
