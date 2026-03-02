@@ -17,7 +17,6 @@ interface SpinResultsProps {
   result: SpinResult | null
   visible: boolean
 }
-
 export function SpinResults({ result, visible }: SpinResultsProps) {
   if (!result || !visible) return null
 
