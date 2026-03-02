@@ -36,6 +36,21 @@ npm run build
 npm start
 ```
 
+## Docker
+
+```bash
+# Build and run with Docker Compose
+docker compose up --build
+
+# Or build and run directly with Docker
+docker build -t raid-roulette .
+docker run --rm -p 3000:3000 raid-roulette
+```
+
+Open `http://localhost:3000` in your browser.
+
+If Docker Desktop shows a URL like `http://<container-id>:3000`, that hostname is usually only resolvable inside Docker networks. Use `localhost` (or your machine IP + mapped port) from Windows/macOS browsers.
+
 ## Project Structure
 
 ```
