@@ -79,17 +79,16 @@ export function SpinAnimation({ isSpinning, onComplete, duration = 2500 }: SpinA
           {/* Scrolling text bar */}
           <div className="w-full max-w-xs overflow-hidden rounded border border-border bg-secondary/50 px-3 py-1.5">
             <p className="animate-pulse font-mono text-xs text-primary tracking-wider text-center">
-              {">>> RANDOMIZING PARAMETERS <<<"}
+              {">>> INITIATING DROP <<<"}
             </p>
           </div>
 
           {/* Progress bar */}
           <div className="h-1 w-full max-w-xs overflow-hidden rounded-full bg-secondary">
             <div
-              className="h-full rounded-full bg-primary transition-all ease-linear"
+              className="h-full rounded-full bg-primary shadow-[0_0_12px_var(--color-primary)] transition-all ease-linear"
               style={{
                 width: `${Math.min(100, (tick * 80 / duration) * 100)}%`,
-                boxShadow: "0 0 10px rgba(0,220,180,0.5)",
               }}
             />
           </div>

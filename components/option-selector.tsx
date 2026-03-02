@@ -36,11 +36,11 @@ export function OptionSelector({ selected, onToggle, disabled }: OptionSelectorP
   const anySelected = Object.values(selected).some(Boolean)
 
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground">
-        Select categories
+    <div className="z-10 flex w-full flex-col gap-3">
+      <p className="text-center text-xs font-bold tracking-[0.22em] uppercase text-muted-foreground sm:text-sm">
+        Configure Drop Parameters
       </p>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2.5 md:grid-cols-3">
         {OPTIONS.map((option) => {
           const isSelected = selected[option.key]
           return (
@@ -50,29 +50,31 @@ export function OptionSelector({ selected, onToggle, disabled }: OptionSelectorP
               disabled={disabled}
               onClick={() => onToggle(option.key)}
               className={cn(
-                "group relative flex flex-col items-center gap-2 rounded-lg border-2 p-5 transition-all duration-200",
+                "group relative flex flex-col items-start gap-2 rounded-xl border px-3 py-2.5 text-left transition-all duration-200",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 isSelected
-                  ? "border-primary bg-primary/10 text-foreground shadow-[0_0_20px_rgba(0,220,180,0.15)]"
-                  : "border-border bg-card text-muted-foreground hover:border-muted-foreground/50 hover:text-foreground",
+                  ? "border-primary/80 bg-card/95 text-foreground"
+                  : "border-border bg-card/65 text-muted-foreground hover:border-primary/60 hover:text-foreground",
                 disabled && "pointer-events-none opacity-50"
               )}
               aria-pressed={isSelected}
             >
               <div
                 className={cn(
-                  "flex size-12 items-center justify-center rounded-md transition-colors",
-                  isSelected ? "bg-primary/20 text-primary" : "bg-secondary text-muted-foreground group-hover:text-foreground"
+                  "flex w-full items-center gap-2.5 rounded-lg border px-3 py-3.5 transition-colors",
+                  isSelected
+                    ? "border-primary/70 bg-primary/10 text-primary"
+                    : "border-border bg-secondary/70 text-muted-foreground group-hover:text-foreground"
                 )}
               >
-                {option.icon}
+                <span className="shrink-0">{option.icon}</span>
+                <div className="flex flex-col">
+                  <span className="text-base font-black tracking-wide uppercase">{option.label}</span>
+                  <span className="text-xs tracking-wide uppercase text-muted-foreground">{option.description}</span>
+                </div>
               </div>
-              <span className="text-sm font-semibold tracking-wide uppercase">
-                {option.label}
-              </span>
-              <span className="text-xs text-muted-foreground">{option.description}</span>
               {isSelected && (
-                <div className="absolute top-2 right-2 size-2 rounded-full bg-primary shadow-[0_0_6px_rgba(0,220,180,0.6)]" />
+                <div className="absolute top-3 right-3 h-2.5 w-2.5 rounded-full bg-primary" />
               )}
             </button>
           )
