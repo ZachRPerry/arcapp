@@ -50,21 +50,21 @@ export function OptionSelector({ selected, onToggle, disabled }: OptionSelectorP
               disabled={disabled}
               onClick={() => onToggle(option.key)}
               className={cn(
-                "group relative flex flex-col items-start gap-2 rounded-xl border px-3 py-2.5 text-left transition-all duration-200",
+                "group relative rounded-xl border text-left transition-all duration-200",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 isSelected
-                  ? "border-primary/80 bg-card/95 text-foreground"
-                  : "border-border bg-card/65 text-muted-foreground hover:border-primary/60 hover:text-foreground",
+                  ? "border-primary/80 text-foreground"
+                  : "border-border text-muted-foreground hover:border-primary/60 hover:text-foreground",
                 disabled && "pointer-events-none opacity-50"
               )}
               aria-pressed={isSelected}
             >
               <div
                 className={cn(
-                  "flex w-full items-center gap-2.5 rounded-lg border px-3 py-3.5 transition-colors",
+                  "flex w-full items-center gap-2.5 rounded-[11px] px-3 py-3.5 transition-colors",
                   isSelected
-                    ? "border-primary/70 bg-primary/10 text-primary"
-                    : "border-border bg-secondary/70 text-muted-foreground group-hover:text-foreground"
+                    ? "bg-primary/10 text-primary"
+                    : "bg-card/75 text-muted-foreground group-hover:text-foreground"
                 )}
               >
                 <span className="shrink-0">{option.icon}</span>

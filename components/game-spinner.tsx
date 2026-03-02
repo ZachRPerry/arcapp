@@ -6,9 +6,10 @@ import { Dices, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { OptionSelector, type SpinOption } from "@/components/option-selector"
 import { SpinAnimation } from "@/components/spin-animation"
-import { SpinResults, type SpinResult } from "@/components/spin-results"
+import { SpinResults } from "@/components/spin-results"
 import { FeedbackDialog } from "@/components/feedback-dialog"
 import { WEAPONS, SPECIAL_RULES, BASE_MAPS } from "@/lib/game-config"
+import type { SpinResult } from "@/lib/spin-result-types"
 import type { MapEvent } from "@/app/api/events/route"
 
 function pickRandom<T>(arr: T[]): T {
