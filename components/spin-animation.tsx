@@ -29,9 +29,11 @@ export function SpinAnimation({ isSpinning, onComplete, duration = 2500 }: SpinA
   useEffect(() => {
     if (!isSpinning) {
       setPhase("idle")
+      setTick(0)
       return
     }
 
+    setTick(0)
     setPhase("spinning")
     const interval = setInterval(() => {
       setTick((t) => t + 1)

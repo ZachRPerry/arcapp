@@ -20,8 +20,8 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json())
 export function GameSpinner() {
   const [selected, setSelected] = useState<Record<SpinOption, boolean>>({
     gunLoadout: true,
-    map: false,
-    specialRule: false,
+    map: true,
+    specialRule: true,
   })
   const [isSpinning, setIsSpinning] = useState(false)
   const [result, setResult] = useState<SpinResult | null>(null)
