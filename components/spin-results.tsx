@@ -39,6 +39,20 @@ export function SpinResults({ result, visible }: SpinResultsProps) {
   const mapTitle = hasMap && mapEvent ? mapEvent.map : "Any Map"
   const mapSubtitle = hasMap && mapEvent ? mapEvent.name : "No Map Restriction"
   const mapImageClassName = cn("h-full w-full", hasMap ? "object-cover" : "object-contain p-2")
+  const mapBadgeText = hasMap && mapEvent
+    ? mapEvent.source === "base"
+      ? "Base Map"
+      : mapEvent.isActiveEvent
+        ? "Active Event"
+        : "Map Event"
+    : undefined
+  const mapBadgeClassName = hasMap && mapEvent
+    ? mapEvent.source === "base"
+      ? "inline-flex items-center rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase text-secondary-foreground"
+      : mapEvent.isActiveEvent
+        ? "inline-flex items-center rounded-full bg-primary/20 px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase text-primary"
+        : "inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase text-primary/80"
+    : undefined
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 flex w-full flex-col gap-4">
@@ -64,6 +78,8 @@ export function SpinResults({ result, visible }: SpinResultsProps) {
             label="Map Selection"
             title={mapTitle}
             subtitle={mapSubtitle}
+            badgeText={mapBadgeText}
+            badgeClassName={mapBadgeClassName}
             imageSrc={mapImage}
             imageAlt={hasMap ? `Map result: ${mapTitle}` : "Map result: Any Map"}
             imageClassName={mapImageClassName}

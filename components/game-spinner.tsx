@@ -50,7 +50,7 @@ export function GameSpinner() {
 
     // Map
     if (selected.map) {
-      const mapPool: Array<{name: string; map: string; image: string}> = []
+      const mapPool: Array<{name: string; map: string; image: string; source: "event" | "base"; isActiveEvent?: boolean}> = []
       const mapImageByName = new Map(BASE_MAPS.map((baseMap) => [baseMap.name, baseMap.image]))
       
       // Add events if available
@@ -65,12 +65,21 @@ export function GameSpinner() {
             name: event.name,
             map: event.map,
             image: mapImageByName.get(event.map) ?? "/result-map.svg",
+            source: "event" as const,
+            isActiveEvent: activeEvents.length > 0,
           }))
         )
       }
       
       // Always add base maps to the pool for chance selection
-      mapPool.push(...BASE_MAPS.map((baseMap) => ({ name: baseMap.name, map: baseMap.name, image: baseMap.image })))
+      mapPool.push(
+        ...BASE_MAPS.map((baseMap) => ({
+          name: baseMap.name,
+          map: baseMap.name,
+          image: baseMap.image,
+          source: "base" as const,
+        }))
+      )
       
       // Pick randomly from combined pool
       if (mapPool.length > 0) {
