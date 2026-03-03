@@ -2,6 +2,8 @@ interface ResultCardProps {
   label: string
   title: string
   subtitle: string
+  badgeText?: string
+  badgeClassName?: string
   imageSrc: string
   imageAlt: string
   imageClassName: string
@@ -14,6 +16,8 @@ export function ResultCard({
   label,
   title,
   subtitle,
+  badgeText,
+  badgeClassName,
   imageSrc,
   imageAlt,
   imageClassName,
@@ -35,7 +39,12 @@ export function ResultCard({
         />
       </div>
       <div className="flex flex-col gap-1 p-4 sm:p-5">
-        <p className="text-xs font-bold tracking-[0.14em] uppercase text-muted-foreground">{label}</p>
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-xs font-bold tracking-[0.14em] uppercase text-muted-foreground">{label}</p>
+          {badgeText && (
+            <span className={badgeClassName}>{badgeText}</span>
+          )}
+        </div>
         <p className="text-2xl font-black tracking-wide uppercase sm:text-3xl" style={{ color: titleColor }}>
           {title}
         </p>

@@ -1,4 +1,5 @@
 import { SPECIAL_RULES } from "@/lib/game-config"
+import { FeedbackDialog } from "@/components/feedback-dialog"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import type { Metadata } from "next"
@@ -13,7 +14,7 @@ export default function RulesPage() {
     <main className="flex min-h-svh flex-col px-4 py-10 sm:py-16">
       <div className="mx-auto w-full max-w-4xl">
         {/* Header */}
-        <header className="flex flex-col gap-6 pb-10">
+        <header className="flex flex-col gap-6 rounded-xl border border-border/70 bg-card/70 p-4 pb-8 backdrop-blur-sm sm:p-6 sm:pb-10">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors w-fit"
@@ -60,6 +61,10 @@ export default function RulesPage() {
               )}
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 flex justify-center border-t border-border/80 pt-4">
+          <FeedbackDialog />
         </div>
 
         {/* Footer */}
