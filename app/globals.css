@@ -123,3 +123,35 @@
     @apply h-px flex-1 bg-border;
   }
 }
+
+@keyframes slot-scan {
+  0% {
+    transform: translateY(-2.5rem);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(13rem);
+    opacity: 0;
+  }
+}
+
+@keyframes slot-card {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-4px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+  75% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

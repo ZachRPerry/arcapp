@@ -1,11 +1,10 @@
 "use client"
 
-import { useCallback, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import useSWR from "swr"
 import { Dices, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { OptionSelector, type SpinOption } from "@/components/option-selector"
-import { SpinAnimation } from "@/components/spin-animation"
 import { SpinResults } from "@/components/spin-results"
 import { FeedbackDialog } from "@/components/feedback-dialog"
 import { WEAPONS, SPECIAL_RULES, BASE_MAPS } from "@/lib/game-config"
@@ -19,10 +18,16 @@ function pickRandom<T>(arr: T[]): T {
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export function GameSpinner() {
+  const spinTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [selected, setSelected] = useState<Record<SpinOption, boolean>>({
     gunLoadout: true,
     map: true,
     specialRule: true,
+  })
+  const [locked, setLocked] = useState<Record<SpinOption, boolean>>({
+    gunLoadout: false,
+    map: false,
+    specialRule: false,
   })
   const [isSpinning, setIsSpinning] = useState(false)
   const [result, setResult] = useState<SpinResult | null>(null)
@@ -35,83 +40,116 @@ export function GameSpinner() {
   })
 
   const anySelected = Object.values(selected).some(Boolean)
+  const hasUnlockedSelected = (Object.keys(selected) as SpinOption[]).some(
+    (key) => selected[key] && !locked[key]
+  )
+
+  useEffect(() => {
+    return () => {
+      if (spinTimeoutRef.current) {
+        clearTimeout(spinTimeoutRef.current)
+      }
+    }
+  }, [])
 
   function handleToggle(option: SpinOption) {
     setSelected((prev) => ({ ...prev, [option]: !prev[option] }))
+    setLocked({
+      gunLoadout: false,
+      map: false,
+      specialRule: false,
+    })
   }
 
-  function performSpin() {
+  function handleToggleLock(option: SpinOption) {
+    if (isSpinning || !selected[option]) return
+    setLocked((prev) => ({ ...prev, [option]: !prev[option] }))
+  }
+
+  function performSpin(previousResult: SpinResult | null) {
     const spinResult: SpinResult = {}
 
     // Gun Loadout
     if (selected.gunLoadout) {
-      spinResult.weapon = pickRandom(WEAPONS)
+      if (locked.gunLoadout && previousResult?.weapon) {
+        spinResult.weapon = previousResult.weapon
+      } else {
+        spinResult.weapon = pickRandom(WEAPONS)
+      }
     }
 
     // Map
     if (selected.map) {
-      const mapPool: Array<{name: string; map: string; image: string; source: "event" | "base"; isActiveEvent?: boolean}> = []
-      const mapImageByName = new Map(BASE_MAPS.map((baseMap) => [baseMap.name, baseMap.image]))
-      
-      // Add events if available
-      if (mapEvents && mapEvents.length > 0) {
-        const now = Date.now()
-        const activeEvents = mapEvents.filter(
-          (e) => e.startTime <= now && e.endTime >= now
-        )
-        const eventsToUse = activeEvents.length > 0 ? activeEvents : mapEvents
+      if (locked.map && previousResult?.mapEvent) {
+        spinResult.mapEvent = previousResult.mapEvent
+      } else {
+        const mapPool: Array<{name: string; map: string; image: string; source: "event" | "base"; isActiveEvent?: boolean}> = []
+        const mapImageByName = new Map(BASE_MAPS.map((baseMap) => [baseMap.name, baseMap.image]))
+
+        // Add events if available
+        if (mapEvents && mapEvents.length > 0) {
+          const now = Date.now()
+          const activeEvents = mapEvents.filter(
+            (e) => e.startTime <= now && e.endTime >= now
+          )
+          const eventsToUse = activeEvents.length > 0 ? activeEvents : mapEvents
+          mapPool.push(
+            ...eventsToUse.map((event) => ({
+              name: event.name,
+              map: event.map,
+              image: mapImageByName.get(event.map) ?? "/result-map.svg",
+              source: "event" as const,
+              isActiveEvent: activeEvents.length > 0,
+            }))
+          )
+        }
+
+        // Always add base maps to the pool for chance selection
         mapPool.push(
-          ...eventsToUse.map((event) => ({
-            name: event.name,
-            map: event.map,
-            image: mapImageByName.get(event.map) ?? "/result-map.svg",
-            source: "event" as const,
-            isActiveEvent: activeEvents.length > 0,
+          ...BASE_MAPS.map((baseMap) => ({
+            name: baseMap.name,
+            map: baseMap.name,
+            image: baseMap.image,
+            source: "base" as const,
           }))
         )
-      }
-      
-      // Always add base maps to the pool for chance selection
-      mapPool.push(
-        ...BASE_MAPS.map((baseMap) => ({
-          name: baseMap.name,
-          map: baseMap.name,
-          image: baseMap.image,
-          source: "base" as const,
-        }))
-      )
-      
-      // Pick randomly from combined pool
-      if (mapPool.length > 0) {
-        const selected = pickRandom(mapPool)
-        spinResult.mapEvent = selected
+
+        // Pick randomly from combined pool
+        if (mapPool.length > 0) {
+          const selectedMap = pickRandom(mapPool)
+          spinResult.mapEvent = selectedMap
+        }
       }
     }
 
     // Special Rule
     if (selected.specialRule) {
-      let eligibleRules = SPECIAL_RULES.filter((rule) => {
-        // Filter rules that require no gun loadout
-        if (rule.requiresNoGunLoadout && selected.gunLoadout) return false
-        // Filter rules that require specific map events
-        if (rule.requiresMapEvent && spinResult.mapEvent) {
-          return rule.requiresMapEvent.includes(spinResult.mapEvent.name)
-            ? true
-            : false
+      if (locked.specialRule && previousResult?.specialRule) {
+        spinResult.specialRule = previousResult.specialRule
+      } else {
+        let eligibleRules = SPECIAL_RULES.filter((rule) => {
+          // Filter rules that require no gun loadout
+          if (rule.requiresNoGunLoadout && selected.gunLoadout) return false
+          // Filter rules that require specific map events
+          if (rule.requiresMapEvent && spinResult.mapEvent) {
+            return rule.requiresMapEvent.includes(spinResult.mapEvent.name)
+              ? true
+              : false
+          }
+          if (rule.requiresMapEvent && !spinResult.mapEvent) return false
+          return true
+        })
+
+        // Fallback: if all rules are filtered, use the generic ones
+        if (eligibleRules.length === 0) {
+          eligibleRules = SPECIAL_RULES.filter(
+            (r) => !r.requiresMapEvent && !r.requiresNoGunLoadout
+          )
         }
-        if (rule.requiresMapEvent && !spinResult.mapEvent) return false
-        return true
-      })
 
-      // Fallback: if all rules are filtered, use the generic ones
-      if (eligibleRules.length === 0) {
-        eligibleRules = SPECIAL_RULES.filter(
-          (r) => !r.requiresMapEvent && !r.requiresNoGunLoadout
-        )
-      }
-
-      if (eligibleRules.length > 0) {
-        spinResult.specialRule = pickRandom(eligibleRules)
+        if (eligibleRules.length > 0) {
+          spinResult.specialRule = pickRandom(eligibleRules)
+        }
       }
     }
 
@@ -119,35 +157,38 @@ export function GameSpinner() {
   }
 
   function handleSpin() {
-    if (!anySelected) return
-    setShowResults(false)
-    setResult(null)
+    if (!anySelected || (showResults && !hasUnlockedSelected)) return
     setIsSpinning(true)
+    setShowResults(true)
+
+    if (spinTimeoutRef.current) {
+      clearTimeout(spinTimeoutRef.current)
+    }
+    spinTimeoutRef.current = setTimeout(() => {
+      const spinResult = performSpin(result)
+      setResult(spinResult)
+      setIsSpinning(false)
+      setShowResults(true)
+
+      // Track spin completion in Google Analytics
+      if (typeof window !== "undefined" && "gtag" in window) {
+        ;(window as any).gtag("event", "spin_completed", {
+          had_weapon: !!spinResult.weapon,
+          had_map: !!spinResult.mapEvent,
+          had_rule: !!spinResult.specialRule,
+          locked_categories: (Object.keys(locked) as SpinOption[]).filter((key) => locked[key]),
+        })
+      }
+    }, 2200)
     
     // Track spin event in Google Analytics
     if (typeof window !== 'undefined' && 'gtag' in window) {
       (window as any).gtag('event', 'spin_initiated', {
-        'selected_categories': Object.keys(selected).filter(key => selected[key as SpinOption])
+        'selected_categories': Object.keys(selected).filter(key => selected[key as SpinOption]),
+        'locked_categories': Object.keys(locked).filter(key => locked[key as SpinOption])
       })
     }
   }
-
-  const handleSpinComplete = useCallback(() => {
-    const spinResult = performSpin()
-    setResult(spinResult)
-    setIsSpinning(false)
-    setShowResults(true)
-    
-    // Track spin completion in Google Analytics
-    if (typeof window !== 'undefined' && 'gtag' in window) {
-      (window as any).gtag('event', 'spin_completed', {
-        'had_weapon': !!spinResult.weapon,
-        'had_map': !!spinResult.mapEvent,
-        'had_rule': !!spinResult.specialRule
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, mapEvents])
 
   return (
     <div className="flex w-full max-w-5xl flex-col gap-8">
@@ -173,26 +214,31 @@ export function GameSpinner() {
         )}
       </div>
 
-      {/* Spin Animation */}
-      <SpinAnimation
-        isSpinning={isSpinning}
-        onComplete={handleSpinComplete}
-      />
-
       {/* Results */}
-      <SpinResults result={result} visible={showResults} />
+      <SpinResults
+        result={result}
+        visible={showResults}
+        isSpinning={isSpinning}
+        selected={selected}
+        locked={locked}
+        onToggleLock={handleToggleLock}
+      />
 
       {/* Spin Again Button */}
       {showResults && (
         <div className="flex flex-col items-center gap-3">
           <Button
             onClick={handleSpin}
+            disabled={!hasUnlockedSelected || isSpinning}
             size="lg"
             className="relative h-14 w-full max-w-sm gap-3 rounded-lg border-2 border-primary/90 bg-primary text-primary-foreground text-2xl font-black tracking-wide uppercase transition-all duration-300 hover:bg-primary/90"
           >
             <RotateCcw className="size-5" />
-            Spin Again
+            {isSpinning ? "Spinning..." : "Spin Again"}
           </Button>
+          {!hasUnlockedSelected && (
+            <p className="text-xs text-muted-foreground">Unlock at least one selected result to spin again.</p>
+          )}
         </div>
       )}
 
