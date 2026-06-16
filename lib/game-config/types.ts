@@ -34,5 +34,6 @@ export interface SpecialRule {
   name: string
   description: string
   requiresMapEvent?: string[]
+  requiresMap?: string[]
   requiresNoGunLoadout?: boolean
 }

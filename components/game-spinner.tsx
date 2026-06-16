@@ -137,13 +137,18 @@ export function GameSpinner() {
               : false
           }
           if (rule.requiresMapEvent && !spinResult.mapEvent) return false
+          // Filter rules that require a specific base map
+          if (rule.requiresMap && spinResult.mapEvent) {
+            return rule.requiresMap.includes(spinResult.mapEvent.map)
+          }
+          if (rule.requiresMap && !spinResult.mapEvent) return false
           return true
         })
 
         // Fallback: if all rules are filtered, use the generic ones
         if (eligibleRules.length === 0) {
           eligibleRules = SPECIAL_RULES.filter(
-            (r) => !r.requiresMapEvent && !r.requiresNoGunLoadout
+            (r) => !r.requiresMapEvent && !r.requiresMap && !r.requiresNoGunLoadout
           )
         }
 

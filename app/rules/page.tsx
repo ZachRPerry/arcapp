@@ -45,7 +45,7 @@ export default function RulesPage() {
               <p className="text-sm text-muted-foreground mb-3">
                 {rule.description}
               </p>
-              {(rule.requiresMapEvent || rule.requiresNoGunLoadout) && (
+              {(rule.requiresMapEvent || rule.requiresMap || rule.requiresNoGunLoadout) && (
                 <div className="flex flex-wrap gap-2">
                   {rule.requiresNoGunLoadout && (
                     <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
@@ -55,6 +55,11 @@ export default function RulesPage() {
                   {rule.requiresMapEvent && (
                     <span className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-muted-foreground">
                       Map: {rule.requiresMapEvent.join(", ")}
+                    </span>
+                  )}
+                  {rule.requiresMap && (
+                    <span className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-muted-foreground">
+                      Map: {rule.requiresMap.join(", ")}
                     </span>
                   )}
                 </div>

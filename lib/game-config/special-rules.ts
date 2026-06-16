@@ -84,4 +84,47 @@ export const SPECIAL_RULES: SpecialRule[] = [
     description: "Take one of each instrument in and start a band with random players.",
     requiresNoGunLoadout: true,
   },
+  {
+    id: "jump-tower",
+    name: "Jump Off the Tower and Survive",
+    description: "Leap from the top of the tower and live to tell the tale.",
+    requiresMap: ["Spaceport"],
+  },
+  {
+    id: "comet-igniter-kill",
+    name: "Comet Igniter Kill",
+    description: "Kill an enemy using a Comet Igniter.",
+  },
+  {
+    id: "extract-rat",
+    name: "Be a Rat",
+    description: "Camp the extract and kill someone right as they try to leave.",
+  },
+  {
+    id: "grenades-only",
+    name: "Grenades Only",
+    description: "Go in with only grenades, wipe a full team, and extract.",
+    requiresNoGunLoadout: true,
+  },
+  {
+    id: "melee-bastion",
+    name: "Melee a Bastion",
+    description: "Take down a Bastion using melee attacks only.",
+  },
+  {
+    id: "recruit-the-fallen",
+    name: "Recruit the Fallen",
+    description: "Revive everyone you kill, have them join your team, and keep building your squad.",
+  },
+  {
+    id: "shredder-deadline",
+    name: "Deadline a Shredder",
+    description: "Stick a Deadline on a Shredder.",
+  },
+  {
+    id: "free-kit-glow-up",
+    name: "Free Kit Glow Up",
+    description: "Go in with a free kit and don't leave until you have all purple or better gear.",
+    requiresNoGunLoadout: true,
+  },
 ]
