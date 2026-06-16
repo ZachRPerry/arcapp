@@ -17,10 +17,12 @@ export const WEAPONS: Weapon[] = [
   { name: "Venator", type: "Pistol", image: "/weapons/Venator.png", rarity: WeaponRarity.Rare },
 
   { name: "Stitcher", type: "SMG", image: "/weapons/Stitcher.png", rarity: WeaponRarity.Common },
+  { name: "Canto", type: "SMG", image: "/weapons/Canto.png", rarity: WeaponRarity.Rare },
   { name: "Bobcat", type: "SMG", image: "/weapons/Bobcat.png", rarity: WeaponRarity.Epic },
 
   { name: "Il Toro", type: "Shotgun", image: "/weapons/Il_Toro-.png", rarity: WeaponRarity.Uncommon },
   { name: "Vulcano", type: "Shotgun", image: "/weapons/Volcano.png", rarity: WeaponRarity.Epic },
+  { name: "Dolabra", type: "Shotgun", image: "/weapons/Dolabra.png", rarity: WeaponRarity.Legendary },
 
   { name: "Osprey", type: "Sniper", image: "/weapons/Osprey.png", rarity: WeaponRarity.Rare },
   { name: "Jupiter", type: "Sniper", image: "/weapons/Jupiter.png", rarity: WeaponRarity.Legendary },
@@ -29,4 +31,5 @@ export const WEAPONS: Weapon[] = [
 
   { name: "Equalizer", type: "Special", image: "/weapons/Equalizer.png", rarity: WeaponRarity.Legendary },
   { name: "Hullcracker", type: "Special", image: "/weapons/Hullcracker.png", rarity: WeaponRarity.Epic },
+  { name: "Rascal", type: "Special", image: "/weapons/Rascal.png", rarity: WeaponRarity.Rare },
 ]

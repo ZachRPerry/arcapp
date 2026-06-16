@@ -6,4 +6,5 @@ export const BASE_MAPS: BaseMap[] = [
   { name: "Buried City", id: "buried-city", image: "/maps/buried=city.png" },
   { name: "Blue Gate", id: "blue-gate", image: "/maps/blue-gate.png" },
   { name: "Stella Montis", id: "stella", image: "/maps/stella.png" },
+  { name: "Riven Tides", id: "riven-tides", image: "/maps/riven-tides.png" },
 ]
